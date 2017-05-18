@@ -3,19 +3,19 @@ version: '2'
 ### Change the `project` with your own project name ###
 services:
     application:
-        container_name: learnvue_application
+        container_name: autopro_application
         image: debian
         volumes:
             - ./:/var/www/laravel
     workspace:
-        container_name: learnvue_workspace
+        container_name: autopro_workspace
         restart: always
         image: framgia/laravel-workspace
         volumes_from:
             - application
         tty: true
     php-fpm:
-        container_name: learnvue_php-fpm
+        container_name: autopro_php-fpm
         restart: always
         image: framgia/laravel-php-fpm
         volumes_from:
@@ -25,7 +25,7 @@ services:
         links:
             - workspace
     nginx:
-        container_name: learnvue_nginx
+        container_name: autopro_nginx
         restart: always
         image: framgia/laravel-nginx
         volumes_from:
@@ -33,29 +33,29 @@ services:
             - logs
             - application
         ports:
-            - "8000:80"
+            - "8008:80"
         links:
             - php-fpm
     data:
-        container_name: learnvue_data
+        container_name: autopro_data
         image: debian
         volumes:
             - .docker/mysql:/var/lib/mysql
             - .docker/data:/data
     data_test:
-        container_name: learnvue_data_test
+        container_name: autopro_data_test
         image: debian
         volumes:
             - .docker/mysql_test:/var/lib/mysql
             - .docker/data_test:/data
     logs:
-        container_name: learnvue_logs
+        container_name: autopro_logs
         image: debian
         volumes:
             - .docker/logs/nginx:/var/log/nginx
             - .docker/logs/mongodb:/var/log/mongodb
     mysql:
-        container_name: learnvue_mysql
+        container_name: autopro_mysql
         restart: always
         image: mysql
         volumes_from:
@@ -69,7 +69,7 @@ services:
             MYSQL_PASSWORD: secret
             MYSQL_ROOT_PASSWORD: root
     mysql_test:
-        container_name: learnvue_mysql_test
+        container_name: autopro_mysql_test
         restart: always
         image: mysql
         volumes_from:
@@ -82,7 +82,7 @@ services:
             MYSQL_PASSWORD: secret
             MYSQL_ROOT_PASSWORD: root
     mongo:
-        container_name: learnvue_mongo
+        container_name: autopro_mongo
         restart: always
         image: mongo
         expose:
@@ -91,7 +91,7 @@ services:
             - data
             - logs
     redis:
-        container_name: learnvue_redis
+        container_name: autopro_redis
         restart: always
         image: redis
         expose:
