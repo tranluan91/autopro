@@ -1,4 +1,9 @@
 const { mix } = require('laravel-mix');
+let paths = {
+    'gentelella': './node_modules/gentelella/',
+    'gentelella_vendors': './node_modules/gentelella/vendors/',
+    'resources': 'resources/assets/',
+}
 
 /*
  |--------------------------------------------------------------------------
@@ -11,5 +16,29 @@ const { mix } = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+mix.combine([
+        paths.gentelella_vendors + 'bootstrap/dist/css/bootstrap.min.css', // Bootstrap
+        paths.gentelella_vendors + 'font-awesome/css/font-awesome.min.css', // Font awesome
+        paths.gentelella_vendors + 'bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css', // Bootstrap Progress Bar
+        paths.gentelella + 'build/css/custom.min.css' // Gentelella
+    ],  'public/css/all.css')
+    .combine([
+        paths.gentelella_vendors + 'jquery/dist/jquery.min.js', // jQuery
+        paths.gentelella_vendors + 'bootstrap/dist/js/bootstrap.min.js', // Bootstrap
+        paths.resources + 'js/custom.js', // Gentelella
+        paths.gentelella_vendors + 'Chart.js/dist/Chart.min.js', // ChartJS
+        paths.gentelella_vendors + 'bernii/gauge.js/dist/gauge.min.js', // Gauge JS
+        paths.gentelella_vendors + 'skycons/skycons.js', // Skycons
+        paths.gentelella_vendors + 'raphael/raphael.min.js', // Morris JS
+        paths.gentelella_vendors + 'morris.js/morris.min.js' // Morris JS
+    ], 'public/js/all.js');
+
+    mix.copy([
+        paths.gentelella_vendors + 'bootstrap/fonts/', // Bootstrap
+        paths.gentelella_vendors + 'font-awesome/fonts/', // Font Awesome
+    ], 'public/fonts');
+
+    mix.copy([
+        paths.gentelella_vendors + 'bootstrap/fonts/', // Bootstrap
+        paths.gentelella_vendors + 'font-awesome/fonts/', // Font Awesome
+    ], 'public/build/fonts');

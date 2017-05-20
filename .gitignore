@@ -10,3 +10,8 @@ Homestead.yaml
 npm-debug.log
 .env
 .docker
+/public/css
+/public/js
+/public/build
+/public/fonts
+/public/mix-manifest.json
