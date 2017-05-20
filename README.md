@@ -13,9 +13,9 @@ docker-compose up -d
 // Run the following command to check docker status
 docker ps
 ```
-- SSH into `lockscreen_workspace` container:
+- SSH into `autopro_workspace` container:
 ```
-docker exec -it lockscreen_workspace /bin/bash
+docker exec -it autopro_workspace /bin/bash
 ```
     - Run `composer install` (for `vendor` directory).
     - Run `yarn` (for `node_modules` directory).
