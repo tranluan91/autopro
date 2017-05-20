@@ -26,11 +26,6 @@ mix.combine([
         paths.gentelella_vendors + 'jquery/dist/jquery.min.js', // jQuery
         paths.gentelella_vendors + 'bootstrap/dist/js/bootstrap.min.js', // Bootstrap
         paths.resources + 'js/custom.js', // Gentelella
-        paths.gentelella_vendors + 'Chart.js/dist/Chart.min.js', // ChartJS
-        paths.gentelella_vendors + 'bernii/gauge.js/dist/gauge.min.js', // Gauge JS
-        paths.gentelella_vendors + 'skycons/skycons.js', // Skycons
-        paths.gentelella_vendors + 'raphael/raphael.min.js', // Morris JS
-        paths.gentelella_vendors + 'morris.js/morris.min.js' // Morris JS
     ], 'public/js/all.js');
 
     mix.copy([
