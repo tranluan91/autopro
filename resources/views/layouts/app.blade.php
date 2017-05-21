@@ -59,10 +59,15 @@
 
                                     <ul class="dropdown-menu" role="menu">
                                         <li>
+                                            <a href="{{ route('change-password') }}">
+                                            @lang('setting.change_password')
+                                            </a>
+                                        </li>
+                                        <li>
                                             <a href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
-                                                Logout
+                                                @lang('setting.logout')
                                                 <i class="fa fa-sign-out pull-right"></i>
                                             </a>
 

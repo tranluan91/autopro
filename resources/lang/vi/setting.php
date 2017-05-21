@@ -1,0 +1,43 @@
+<?php
+
+return [
+    'homepage' => 'Trang chủ',
+    'create_vps' => 'Thêm VPS',
+    'vps_list' => 'Danh sách VPS',
+    'ip' => 'Địa chỉ IP',
+    'username' => 'Tên đăng nhập',
+    'password' => 'Mật khẩu',
+    'port' => 'Cổng',
+    'add_vps' => 'Thêm VPS',
+    'vps_success' => 'Success! VPS đã được add thành công.',
+    'vps_fail' => 'Danger! VPS này đã được add.',
+    'vps_added' => 'Danh sách VPS đã được thêm',
+    'website_added' => 'Danh sách Website đã được thêm',
+    'create_website' => 'Thêm Website',
+    'list' => 'Danh sách',
+    'domain' => 'Tên Domain',
+    'vps_select' => 'Chọn VPS',
+    'keyword' => 'Keyword',
+    'website_success' => 'Success! Website đã được tạo thành công.',
+    'add_website' => 'Thêm Website',
+    'choose' => 'Mời bạn chọn...',
+    'change_password' => 'Đổi mật khẩu',
+    'logout' => 'Đăng xuất',
+    'old_pass' => 'Mật khẩu cũ',
+    'new_pass' => 'Mật khẩu mới',
+    'new_pass_confirm' => 'Nhập lại mật khẩu mới',
+    'old_pass_' => [
+        'require' => 'Vui lòng nhập mật khẩu hiện tại',
+        'match' => 'Mật khẩu hiện tại không đúng',
+    ],
+    'new_pass_' => [
+        'require' => 'Vui lòng nhập mật khẩu mới',
+        'valid' => 'Mật khẩu ít nhất 6 ký tự',
+    ],
+    'new_pass_confirm_' => [
+        'require' => 'Vui lòng nhập lại mật khẩu mới',
+        'valid' => 'Mật khẩu ít nhất 6 ký tự',
+        'match' => 'Mật khẩu nhập lại không giống',
+    ],
+    'change_password_success' => 'Success! Password đã được thay đổi.',
+];

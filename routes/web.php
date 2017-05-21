@@ -18,3 +18,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('vps/create', 'VpsController@create');
+Route::post('vps/store', 'VpsController@store');
+Route::get('websites/create', 'WebsitesController@create');
+Route::post('websites/store', 'WebsitesController@store');
+Route::get('user/change-password', 'UsersController@changePassword')->name('change-password');
+Route::put('websites/store', 'UsersController@updatePassword');
