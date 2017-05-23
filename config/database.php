@@ -54,6 +54,21 @@ return [
             'engine' => null,
         ],
 
+        'origin_data' => [
+            'driver' => 'mysql',
+            'host' => env('ORIGIN_DB_HOST', '127.0.0.1'),
+            'port' => env('ORIGIN_DB_PORT', '3306'),
+            'database' => env('ORIGIN_DB_DATABASE', 'forge'),
+            'username' => env('ORIGIN_DB_USERNAME', 'forge'),
+            'password' => env('ORIGIN_DB_PASSWORD', ''),
+            'unix_socket' => env('ORIGIN_DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),

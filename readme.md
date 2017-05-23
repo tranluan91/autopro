@@ -13,3 +13,13 @@ docker ps
  ```
  http://localhost:8000/
  ```
+
+
+### convert datata
+
+run: 
+``
+php artisan convert:data http://xemtruyen.net
+``
+
+> http://xemtruyen.net is domain
