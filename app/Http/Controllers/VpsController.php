@@ -20,7 +20,7 @@ class VpsController extends Controller
     public function create(Request $reqest)
     {
         $vpsList = [__('setting.vps_added')];
-        $vpsList = array_merge($vpsList, Vps::orderBy('id', 'DESC')->pluck('ip')->toArray());
+        $vpsList += Vps::orderBy('id', 'DESC')->pluck('ip', 'id')->toArray();
 
         return view('vps.create', compact([
             'vpsList'
@@ -42,5 +42,45 @@ class VpsController extends Controller
         }
 
         return redirect()->back()->with('message', __('setting.vps_success'));
+    }
+
+    public function edit($id)
+    {
+        $vps = Vps::findOrFail($id);
+
+        return view('vps.edit', compact([
+            'vps',
+        ]));
+    }
+
+    public function update(Request $request)
+    {
+        $input = $request->all();
+        $vps = Vps::findOrFail($input['id']);
+        $validator = \Validator::make($input, Vps::rule($input['id']));
+
+        if ($validator->fails()) {
+            return redirect('vps/' . $input['id'] . '/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        $vps->ip = $input['ip'];
+        $vps->username = $input['username'];
+        $vps->password = $input['password'];
+        $vps->port = $input['port'];
+        if ($vps->save()) {
+            return redirect()->back()->with('message', __('setting.edit_vps_success'));
+        }
+
+        return redirect()->back()->with('error', __('setting.edit_vps_fail'));
+    }
+
+    public function destroy($id)
+    {
+        if (Vps::destroy($id)) {
+            return redirect('vps/create')->with('message', __('setting.delete_vps_success'));
+        }
+
+        return redirect()->back()->with('error', __('setting.delete_vps_fail'));
     }
 }

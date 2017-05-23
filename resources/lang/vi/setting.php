@@ -40,4 +40,11 @@ return [
         'match' => 'Mật khẩu nhập lại không giống',
     ],
     'change_password_success' => 'Success! Password đã được thay đổi.',
+    'edit_vps' => 'Thay đổi VPS',
+    'edit_vps_success' => 'Success! VPS đã được thay đổi thành công.',
+    'edit_vps_fail' => 'Danger! VPS này đã được add.',
+    'delete_vps' => 'Xóa VPS',
+    'delete_vps_confirm' => 'Bạn có chắc xóa VPS này?',
+    'delete_vps_success' => 'VPS này đã được xóa',
+    'delete_vps_fail' => 'VPS này chưa được xóa',
 ];

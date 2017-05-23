@@ -21,9 +21,9 @@ class WebsitesController extends Controller
     public function create(Request $reqest)
     {
         $websites = [__('setting.website_added')];
-        $websites = array_merge($websites, Website::orderBy('id', 'DESC')->pluck('domain')->toArray());
+        $websites +=  Website::orderBy('id', 'DESC')->pluck('domain', 'id')->toArray();
         $vpsList = [__('setting.choose')];
-        $vpsList = array_merge($vpsList, Vps::orderBy('id', 'DESC')->pluck('ip')->toArray());
+        $vpsList += Vps::orderBy('id', 'DESC')->pluck('ip', 'id')->toArray();
 
         return view('websites.create', compact([
             'websites',
