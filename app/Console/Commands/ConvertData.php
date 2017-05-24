@@ -3,7 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Models\Item;
+use App\Models\Link;
 use App\Models\Size;
+use App\Models\Website;
 use Automattic\WooCommerce\Client;
 use Cache;
 use Config;
@@ -45,6 +47,8 @@ class ConvertData extends Command
 
     protected $tags;
 
+    protected $websiteId;
+
     public function __construct()
     {
         parent::__construct();
@@ -57,22 +61,53 @@ class ConvertData extends Command
      */
     public function handle()
     {
+        set_time_limit(0);
         try {
-            $this->client = new Client($this->argument('domain'), self::consumer_key, self::consumer_secret, []);
+            $this->client = new Client($this->argument('domain'), self::consumer_key, self::consumer_secret, ['timeout' => 100]);
             $key = $this->argument('key');
-            set_time_limit(0);
-            $this->config();
-            $this->convertCategories();
-            $this->createProductAttribute();
-            $this->createProductTag();
-            $this->convertProduct($key);
+            if ($this->checkUrl()) {
+                $this->config();
+                $this->convertCategories();
+                $this->createProductAttribute();
+                $this->createProductTag();
+                $this->convertProduct($key);
 
-            return true;
+                return true;
+            }
         } catch (\Exception $e) {
             \Log::alert($e);
         }
 
         return false;
+    }
+
+    public function checkUrl()
+    {
+        $website = Website::where('domain', trim($this->argument('domain')))->first();
+        if ($website) {
+            $product = $this->client->get('products');
+            if (isset($product['products'])) {
+                $this->websiteId = $website->id;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function deleteProduct()
+    {
+        $products = $this->client->get('products', [
+            'filter[limit]' => 20,
+            'fields' => 'id',
+        ]);
+
+        foreach ($products['products'] as $product) {
+            if (isset($product['id'])) {
+                $this->client->delete('products/' . $product['id'], ['force' => true]);
+                echo $product['id'] . '-';
+            }
+        }
     }
 
     private function config()
@@ -100,7 +135,6 @@ class ConvertData extends Command
         $categories = $this->getAllCategories();
         foreach ($categories['product_categories'] as $category) {
             $items = Item::where('cate', 'LIKE', '%' . $category['name'] . '%')
-                ->offset(100)
                 ->with('details', 'details.color', 'details.style');
             if ($key) {
                 $items = $items->where('keyword', 'like', '%' . $key . '%');
@@ -135,13 +169,39 @@ class ConvertData extends Command
                         unset($data['variations']);
                         $this->client->put('products/' . $product[0]['id'], $data);
                     } else {
-                        $this->client->post('products', $data);
+                        $response = $this->client->post('products', $data);
+                        if (isset($response['product'])) {
+                            $this->saveLink($response['product']);
+                        }
                     }
                 } catch (\Exception $e) {
                     \Log::alert($e);
                 }
             }
         }
+    }
+
+    public function saveLink($response)
+    {
+        Link::create([
+            'website_id' => $this->websiteId,
+            'product_images' => $this->getProductImg($response),
+            'product_url' => $response['permalink'],
+            'product_name' => $response['title'],
+            'product_desc' => $response['description']
+        ]);
+    }
+
+    public function getProductImg($response)
+    {
+        $arr = [];
+        foreach ($response['images'] as $image) {
+            if (isset($image['src'])) {
+                $arr[] = $image['src'];
+            }
+        }
+
+        return json_encode($arr);
     }
 
     private function createProductAttribute()
