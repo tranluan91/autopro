@@ -47,4 +47,5 @@ return [
     'delete_vps_confirm' => 'Bạn có chắc xóa VPS này?',
     'delete_vps_success' => 'VPS này đã được xóa',
     'delete_vps_fail' => 'VPS này chưa được xóa',
+    'web_site_not_exist' => 'Website không tồn tại',
 ];
