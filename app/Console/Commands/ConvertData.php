@@ -57,18 +57,22 @@ class ConvertData extends Command
      */
     public function handle()
     {
-        $this->client = new Client($this->argument('domain'), self::consumer_key, self::consumer_secret, []);
-        $key = $this->argument('key');
         try {
+            $this->client = new Client($this->argument('domain'), self::consumer_key, self::consumer_secret, []);
+            $key = $this->argument('key');
             set_time_limit(0);
             $this->config();
             $this->convertCategories();
             $this->createProductAttribute();
             $this->createProductTag();
             $this->convertProduct($key);
+
+            return true;
         } catch (\Exception $e) {
             \Log::alert($e);
         }
+
+        return false;
     }
 
     private function config()
