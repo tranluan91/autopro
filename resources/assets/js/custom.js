@@ -238,3 +238,11 @@ if (typeof NProgress != 'undefined') {
     });
 }
 
+$(document).ready(function() {
+    $("#edit-vps").on("change", function () {
+        $id = $(this).val();
+        if ($id) {
+            window.location.href = "/vps/" + $id + "/edit";
+        }
+    });
+});

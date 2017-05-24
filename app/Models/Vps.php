@@ -16,9 +16,19 @@ class Vps extends Model
     ];
 
     public static $rule = [
-        'ip' => 'required|unique:vps',
+        'ip' => 'required|ip|unique:vps',
         'username' => 'required',
         'password' => 'required',
         'port' => 'required',
     ];
+
+    public static function rule($id)
+    {
+        return [
+            'ip' => 'required|ip|unique:vps,ip,' . $id,
+            'username' => 'required',
+            'password' => 'required',
+            'port' => 'required',
+        ];
+    }
 }

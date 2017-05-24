@@ -6,16 +6,11 @@
         <div class="col-md-12 col-xs-12">
             <div class="panel panel-default">
                 @include('layouts.notice')
-                <div class="panel-heading">@lang('setting.create_vps')</div>
+                <div class="panel-heading">@lang('setting.edit_vps')</div>
 
                 <div class="panel-body">
-                    {!! Form::open(['url' => 'vps/store', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
-                    <div class="form-group">
-                        {!! Form::label('email', __('setting.vps_list'), ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            {!! Form::select('vps', $vpsList, null, ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'edit-vps']) !!}
-                        </div>
-                    </div>
+                    {!! Form::model($vps, ['action' => ['VpsController@update', $vps->id], 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
+                    {!! Form::hidden('id', $vps->id) !!}
                     <div class="form-group">
                         {!! Form::label('ip', __('setting.ip'), ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -42,10 +37,18 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            {!! Form::submit(__('setting.add_vps'), ['class' => 'btn btn-success']) !!}
+                            {!! Form::submit(__('setting.edit_vps'), ['class' => 'btn btn-success']) !!}
+                            {!! Form::close() !!}
+                            {!! Form::open(['action' => ['VpsController@destroy', $vps->id], 'method' => 'DELETE']) !!}
+                                {!! Form::hidden('id', $vps->id) !!}
+                                {!! Form::button(trans('setting.delete_vps'), [
+                                    'type' => 'submit',
+                                    'onclick' => "return confirm('" . trans('setting.delete_vps_confirm') . "');",
+                                    'class' => 'btn btn-danger',
+                                ]) !!}
+                            {!! Form::close() !!}
                         </div>
                     </div>
-                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
