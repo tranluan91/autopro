@@ -26,4 +26,5 @@ Route::delete('vps/{id}/destroy', 'VpsController@destroy');
 Route::get('websites/create', 'WebsitesController@create');
 Route::post('websites/store', 'WebsitesController@store');
 Route::get('user/change-password', 'UsersController@changePassword')->name('change-password');
-Route::put('websites/store', 'UsersController@updatePassword');
+Route::put('user/update-password', 'UsersController@updatePassword');
+Route::post('websites/keyword', 'WebsitesController@keyword');

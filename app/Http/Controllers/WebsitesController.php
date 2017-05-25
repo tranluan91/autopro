@@ -41,11 +41,42 @@ class WebsitesController extends Controller
                         ->withErrors($validator)
                         ->withInput();
         }
-        $input['status'] = Website::WAIT_DEPLOY;
-        if (!Website::create($input)) {
-            redirect()->back()->with('error', __('setting.vps_fail'));
+        $vps = Vps::find($input['vps_id']);
+        if ($vps->website_deployed >= Vps::MAX_SITE_VPS) {
+            return redirect()->back()->with('error', __('setting.vps_max'));
         }
+        $input['status'] = Website::WAIT_DEPLOY;
+        $web = Website::create($input);
+        if (!$web) {
+            return redirect()->back()->with('error', __('setting.vps_fail'));
+        }
+        $website = Website::find($web->id);
+        $vps = $website->vps;
+        $script = "/bin/sh /opt/autodeploy/runme.sh -D '" . $website->domain .
+            "' -W 'wp_template.zip' -h '" . $vps->ip . "' -p " . $vps->port .
+            " -u '" . $vps->username . "' -P '" . $vps->password . "'";
+        $result = exec($script, $output, $result);
+        if (!$result) {
+            $vps->website_deployed += 1;
+            $vps->save();
 
-        return redirect()->back()->with('message', __('setting.website_success'));
+           $request->session()->flash('message', __('setting.web_deploy_success'));
+            return view('websites.keyword', compact(['website']));
+        }
+        Website::destroy($website->id);
+
+        return redirect()->back()->with('error', __('setting.web_deploy_fail'));
+    }
+
+    public function keyword(Request $request)
+    {
+        $input = $request->all();
+
+        \Artisan::call('convert:data', [
+            'domain' => $input['domain'],
+            'key' => isset($input['keyword']) ?: '',
+        ]);
+
+        return redirect('/home');
     }
 }

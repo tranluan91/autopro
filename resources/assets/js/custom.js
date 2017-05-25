@@ -246,3 +246,10 @@ $(document).ready(function() {
         }
     });
 });
+
+$(function(){
+    $(".add-website").click(function () {
+        $(".add-website").attr("disabled", true);
+        $('#create-web').submit();
+    });
+});
