@@ -8,6 +8,8 @@ class Vps extends Model
 {
     protected $table = 'vps';
 
+    const MAX_SITE_VPS = 5;
+
     protected $fillable = [
         'ip',
         'username',

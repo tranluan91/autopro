@@ -21,4 +21,9 @@ class Website extends Model
 
     const WAIT_DEPLOY = 0;
     const DONE_DEPLOY = 1;
+
+    public function vps()
+    {
+        return $this->belongsTo(Vps::class);
+    }
 }

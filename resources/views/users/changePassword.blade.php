@@ -9,7 +9,7 @@
                 <div class="panel-heading">@lang('setting.change_password')</div>
 
                 <div class="panel-body">
-                    {!! Form::open(['url' => 'websites/store', 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
+                    {!! Form::open(['url' => 'user/update-password', 'method' => 'PUT', 'class' => 'form-horizontal']) !!}
                     <div class="form-group">
                         {!! Form::label('old_pass', __('setting.old_pass'), ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
                         <div class="col-md-6 col-sm-6 col-xs-12">
