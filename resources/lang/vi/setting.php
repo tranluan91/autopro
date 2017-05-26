@@ -53,4 +53,6 @@ return [
     'vps_max' => 'VPS này đã deploy quá số lần quy định',
     'add_data' => 'Thêm data',
     'website_deployed' => 'Websites đã thêm trên VPS này',
+    'redeploy' => 'Bạn có chắc deploy lại Website này?',
+    'continuedeploy' => 'Bạn có chắc thêm data cho Website này?',
 ];
