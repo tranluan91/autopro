@@ -8,4 +8,7 @@
     <li>
         <a href="/websites/create"><i class="fa fa-cube"></i> @lang('setting.create_website')</a>
     </li>
+    <li>
+        <a href="/pin"><i class="fa fa-cube"></i> Quản lý tài khoản PIN</a>
+    </li>
 </ul>

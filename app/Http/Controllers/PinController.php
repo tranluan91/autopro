@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Vps;
-use App\Models\Website;
 
-class HomeController extends Controller
+class PinController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -25,10 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = \DB::connection('mysql2')->select('select count(*) as user, sum(count_pin) as pin from users');
-        $vps = Vps::count();
-        $website = Website::count();
+        $users = \DB::connection('mysql2')
+            ->table('users')
+            ->paginate(10);
 
-        return view('home', compact(['users', 'vps', 'website']));
+        return view('pin.index', compact(['users']));
     }
 }

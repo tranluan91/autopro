@@ -52,4 +52,5 @@ return [
     'web_deploy_fail' => 'Website deploy không thành công. Vui lòng kiểm tra lại thông tin.',
     'vps_max' => 'VPS này đã deploy quá số lần quy định',
     'add_data' => 'Thêm data',
+    'website_deployed' => 'Websites đã thêm trên VPS này',
 ];

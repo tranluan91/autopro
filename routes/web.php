@@ -28,3 +28,4 @@ Route::post('websites/store', 'WebsitesController@store');
 Route::get('user/change-password', 'UsersController@changePassword')->name('change-password');
 Route::put('user/update-password', 'UsersController@updatePassword');
 Route::post('websites/keyword', 'WebsitesController@keyword');
+Route::get('pin', 'PinController@index');

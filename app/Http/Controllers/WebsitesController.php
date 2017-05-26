@@ -34,6 +34,7 @@ class WebsitesController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
+        $protocol = $input['protocol'];
         $validator = \Validator::make($input, Website::$rule);
 
         if ($validator->fails()) {
@@ -61,7 +62,7 @@ class WebsitesController extends Controller
             $vps->save();
 
            $request->session()->flash('message', __('setting.web_deploy_success'));
-            return view('websites.keyword', compact(['website']));
+            return view('websites.keyword', compact(['website', 'protocol']));
         }
         Website::destroy($website->id);
 
@@ -73,7 +74,7 @@ class WebsitesController extends Controller
         $input = $request->all();
 
         \Artisan::call('convert:data', [
-            'domain' => $input['domain'],
+            'domain' => $input['protocol'] . $input['domain'],
             'key' => isset($input['keyword']) ?: '',
         ]);
 
