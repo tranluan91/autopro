@@ -33,4 +33,9 @@ class Vps extends Model
             'port' => 'required',
         ];
     }
+
+    public function websites()
+    {
+        return $this->hasMany(Website::class);
+    }
 }

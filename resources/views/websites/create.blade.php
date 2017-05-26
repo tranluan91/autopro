@@ -19,7 +19,25 @@
                     <div class="form-group">
                         {!! Form::label('domain', __('setting.domain'), ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            {!! Form::text('domain', null, ['class' => 'form-control col-md-7 col-xs-12']) !!}
+                            {!! Form::text('domain', null, ['class' => 'form-control col-md-7 col-xs-12', 'placeholder' => 'google.com']) !!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-3 col-xs-12 control-label">Giao thức
+                        <br>
+                        <small class="text-navy">http/https</small>
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <div class="radio">
+                                <label>
+                                <input type="radio" checked="" value="http://" id="optionsRadios1" name="protocol"> http
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                <input type="radio" value="https://" id="optionsRadios2" name="protocol"> https
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">

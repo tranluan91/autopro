@@ -36,6 +36,14 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        {!! Form::label('port', __('setting.website_deployed'), ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            @foreach ($vps->websites as $website)
+                            {!! Form::text('website', $website->domain, ['class' => 'form-control col-md-7 col-xs-12', 'disabled' => 'disabled']) !!}
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                             {!! Form::submit(__('setting.edit_vps'), ['class' => 'btn btn-success']) !!}
                             {!! Form::close() !!}
