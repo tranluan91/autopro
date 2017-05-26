@@ -29,3 +29,6 @@ Route::get('user/change-password', 'UsersController@changePassword')->name('chan
 Route::put('user/update-password', 'UsersController@updatePassword');
 Route::post('websites/keyword', 'WebsitesController@keyword');
 Route::get('pin', 'PinController@index');
+Route::get('websites/index', 'WebsitesController@index');
+Route::post('websites/redeploy', 'WebsitesController@redeploy');
+Route::post('websites/continuedeploy', 'WebsitesController@continuedeploy');

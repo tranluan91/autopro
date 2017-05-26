@@ -56,12 +56,12 @@ class WebsitesController extends Controller
         $script = "/bin/sh /opt/autodeploy/runme.sh -D '" . $website->domain .
             "' -W 'wp_template.zip' -h '" . $vps->ip . "' -p " . $vps->port .
             " -u '" . $vps->username . "' -P '" . $vps->password . "'";
-        $result = exec($script, $output, $result);
+        exec($script, $output, $result);
         if (!$result) {
             $vps->website_deployed += 1;
             $vps->save();
 
-           $request->session()->flash('message', __('setting.web_deploy_success'));
+            $request->session()->flash('message', __('setting.web_deploy_success'));
             return view('websites.keyword', compact(['website', 'protocol']));
         }
         Website::destroy($website->id);
@@ -72,10 +72,50 @@ class WebsitesController extends Controller
     public function keyword(Request $request)
     {
         $input = $request->all();
+        $website = Website::find($input['id']);
+        $website->keyword = $input['keyword'];
+        $website->save();
 
         \Artisan::call('convert:data', [
             'domain' => $input['protocol'] . $input['domain'],
             'key' => isset($input['keyword']) ?: '',
+        ]);
+
+        return redirect('/home');
+    }
+
+    public function index()
+    {
+        $websites = Website::orderBy('id',  'DESC')->paginate(10);
+
+        return view('websites.index', compact(['websites']));
+    }
+
+    public function redeploy(Request $request)
+    {
+        $websiteId = $request->get('id');
+        $website = Website::find($websiteId);
+        $protocol = $website->protocol;
+        $vps = $website->vps;
+        $script = "/bin/sh /opt/autodeploy/runme.sh -D '" . $website->domain .
+            "' -W 'wp_template.zip' -h '" . $vps->ip . "' -p " . $vps->port .
+            " -u '" . $vps->username . "' -P '" . $vps->password . "'";
+        exec($script, $output, $result);
+        if (!$result) {
+            $request->session()->flash('message', __('setting.web_deploy_success'));
+
+            return view('websites.keyword', compact(['website', 'protocol']));
+        }
+        return redirect()->back()->with('error', __('setting.web_deploy_fail'));
+    }
+
+    public function continuedeploy(Request $request)
+    {
+        $websiteId = $request->get('id');
+        $website = Website::find($websiteId);
+        \Artisan::call('convert:data', [
+            'domain' => $website->protocol . $website->domain,
+            'key' => $website->keyword,
         ]);
 
         return redirect('/home');

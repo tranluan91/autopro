@@ -12,6 +12,7 @@ class Website extends Model
         'domain',
         'vps_id',
         'status',
+        'protocol',
     ];
 
     public static $rule = [
