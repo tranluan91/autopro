@@ -39,7 +39,7 @@ class ConvertData extends Command
 
     protected $client;
 
-    protected $limit = 10;
+    protected $limit = 100;
 
     protected $offset = 20;
 
@@ -63,7 +63,7 @@ class ConvertData extends Command
     {
         set_time_limit(0);
         try {
-            $this->client = new Client($this->argument('domain'), self::consumer_key, self::consumer_secret, ['timeout' => 100]);
+            $this->client = new Client($this->argument('domain'), self::consumer_key, self::consumer_secret, ['timeout' => 200]);
             $key = $this->argument('key');
             if ($this->checkUrl()) {
                 $this->config();
@@ -83,7 +83,7 @@ class ConvertData extends Command
 
     public function checkUrl()
     {
-        $website = Website::where('domain', trim($this->argument('domain')))->first();
+        $website = Website::where('domain', trim(parse_url($this->argument('domain'))['host']))->first();
         if ($website) {
             $product = $this->client->get('products');
             if (isset($product['products'])) {
@@ -183,13 +183,16 @@ class ConvertData extends Command
 
     public function saveLink($response)
     {
-        Link::create([
+        $arr = [
             'website_id' => $this->websiteId,
             'product_images' => $this->getProductImg($response),
             'product_url' => $response['permalink'],
             'product_name' => $response['title'],
-            'product_desc' => $response['description']
-        ]);
+            'product_desc' => $response['description'],
+            'check_pin' => 0
+        ];
+        $model = new Link($arr);
+        $model->save();
     }
 
     public function getProductImg($response)
