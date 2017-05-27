@@ -32,3 +32,4 @@ Route::get('pin', 'PinController@index');
 Route::get('websites/index', 'WebsitesController@index');
 Route::post('websites/redeploy', 'WebsitesController@redeploy');
 Route::post('websites/continuedeploy', 'WebsitesController@continuedeploy');
+Route::post('websites/undeploy', 'WebsitesController@undeploy');

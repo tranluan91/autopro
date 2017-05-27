@@ -55,4 +55,6 @@ return [
     'website_deployed' => 'Websites đã thêm trên VPS này',
     'redeploy' => 'Bạn có chắc deploy lại Website này?',
     'continuedeploy' => 'Bạn có chắc thêm data cho Website này?',
+    'undeploy' => 'Bạn có chắc undeploy Website này?',
+    'undeploy_success' => 'Website undeploy thành công',
 ];
