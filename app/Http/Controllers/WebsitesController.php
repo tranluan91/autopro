@@ -141,9 +141,7 @@ class WebsitesController extends Controller
         if (!$result) {
             $request->session()->flash('message', __('setting.undeploy_success'));
 
-            $websites = Website::orderBy('id',  'DESC')->paginate(10);
-
-            return view('websites.index', compact(['websites']));
+            return redirect('websites/index');
         }
         return redirect()->back()->with('error', __('setting.web_deploy_fail'));
     }
