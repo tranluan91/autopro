@@ -18,6 +18,7 @@
                                     <th>Keyword Data</th>
                                     <th></th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,6 +44,16 @@
                                             {!! Form::button('Thêm tiếp data', [
                                                 'type' => 'submit',
                                                 'onclick' => "return confirm('" . trans('setting.continuedeploy') . "');",
+                                                'class' => 'btn btn-primary',
+                                            ]) !!}
+                                        {!! Form::close() !!}
+                                    </td>
+                                    <td>
+                                        {!! Form::open(['action' => ['WebsitesController@undeploy'], 'method' => 'POST']) !!}
+                                            {!! Form::hidden('id', $website->id) !!}
+                                            {!! Form::button('Undeploy', [
+                                                'type' => 'submit',
+                                                'onclick' => "return confirm('" . trans('setting.undeploy') . "');",
                                                 'class' => 'btn btn-primary',
                                             ]) !!}
                                         {!! Form::close() !!}

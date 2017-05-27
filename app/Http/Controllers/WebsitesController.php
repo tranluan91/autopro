@@ -67,11 +67,14 @@ class WebsitesController extends Controller
         return redirect()->back()->with('error', __('setting.web_deploy_fail'));
     }
 
-    private static function runscript($website, $vps)
+    private static function runscript($website, $vps, $undeploy = false)
     {
         $script = "/bin/sh /opt/autodeploy/runme.sh -D '" . $website->domain .
             "' -W 'wp_template.zip' -h '" . $vps->ip . "' -p " . $vps->port .
             " -u '" . $vps->username . "' -P '" . $vps->password . "'";
+        if ($undeploy) {
+            $script .= ' --undeploy';
+        }
         $process = new Process($script);
         $process->setTimeout(1200);
         $process->run();
@@ -126,5 +129,20 @@ class WebsitesController extends Controller
         ]);
 
         return redirect('/home');
+    }
+
+    public function undeploy(Request $request)
+    {
+        $websiteId = $request->get('id');
+        $website = Website::find($websiteId);
+        $protocol = $website->protocol;
+        $vps = $website->vps;
+        $result = self::runscript($website, $vps, true);
+        if (!$result) {
+            $request->session()->flash('message', __('setting.undeploy_success'));
+
+            return view('websites.index');
+        }
+        return redirect()->back()->with('error', __('setting.web_deploy_fail'));
     }
 }
