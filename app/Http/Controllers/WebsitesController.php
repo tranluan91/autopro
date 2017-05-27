@@ -141,7 +141,7 @@ class WebsitesController extends Controller
         if (!$result) {
             $request->session()->flash('message', __('setting.undeploy_success'));
 
-            return view('websites.index');
+            return view('websites.index', compact(['website']));
         }
         return redirect()->back()->with('error', __('setting.web_deploy_fail'));
     }
