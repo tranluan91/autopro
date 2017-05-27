@@ -5,6 +5,7 @@
     <div class="row">
         <div class="col-md-12 col-xs-12">
             <div class="panel panel-default">
+                @include('layouts.notice')
                 <div class="panel-heading">Quản lý websites</div>
 
                 <div class="panel-body">
