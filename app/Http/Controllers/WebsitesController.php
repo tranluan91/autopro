@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Website;
 use App\Models\Vps;
+use Symfony\Component\Process\Process;
 
 class WebsitesController extends Controller
 {
@@ -53,10 +54,7 @@ class WebsitesController extends Controller
         }
         $website = Website::find($web->id);
         $vps = $website->vps;
-        $script = "/bin/sh /opt/autodeploy/runme.sh -D '" . $website->domain .
-            "' -W 'wp_template.zip' -h '" . $vps->ip . "' -p " . $vps->port .
-            " -u '" . $vps->username . "' -P '" . $vps->password . "'";
-        exec($script, $output, $result);
+        $result = self::runscript($website, $vps);
         if (!$result) {
             $vps->website_deployed += 1;
             $vps->save();
@@ -67,6 +65,18 @@ class WebsitesController extends Controller
         Website::destroy($website->id);
 
         return redirect()->back()->with('error', __('setting.web_deploy_fail'));
+    }
+
+    private static function runscript($website, $vps)
+    {
+        $script = "/bin/sh /opt/autodeploy/runme.sh -D '" . $website->domain .
+            "' -W 'wp_template.zip' -h '" . $vps->ip . "' -p " . $vps->port .
+            " -u '" . $vps->username . "' -P '" . $vps->password . "'";
+        $process = new Process($script);
+        $process->setTimeout(1200);
+        $process->run();
+
+        return $process->getOutput();
     }
 
     public function keyword(Request $request)
@@ -97,10 +107,7 @@ class WebsitesController extends Controller
         $website = Website::find($websiteId);
         $protocol = $website->protocol;
         $vps = $website->vps;
-        $script = "/bin/sh /opt/autodeploy/runme.sh -D '" . $website->domain .
-            "' -W 'wp_template.zip' -h '" . $vps->ip . "' -p " . $vps->port .
-            " -u '" . $vps->username . "' -P '" . $vps->password . "'";
-        exec($script, $output, $result);
+        $result = self::runscript($website, $vps);
         if (!$result) {
             $request->session()->flash('message', __('setting.web_deploy_success'));
 
