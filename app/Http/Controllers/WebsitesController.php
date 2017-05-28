@@ -59,8 +59,7 @@ class WebsitesController extends Controller
             $vps->website_deployed += 1;
             $vps->save();
 
-            $request->session()->flash('message', __('setting.web_deploy_success'));
-            return view('websites.keyword', compact(['website', 'protocol']));
+            return redirect('websites/index')->with('message', __('setting.web_deploy_success'));
         }
         Website::destroy($website->id);
 
@@ -112,9 +111,7 @@ class WebsitesController extends Controller
         $vps = $website->vps;
         $result = self::runscript($website, $vps);
         if (!$result) {
-            $request->session()->flash('message', __('setting.web_deploy_success'));
-
-            return view('websites.keyword', compact(['website', 'protocol']));
+            return redirect('websites/index')->with('message', __('setting.web_deploy_success'));
         }
         return redirect()->back()->with('error', __('setting.web_deploy_fail'));
     }
