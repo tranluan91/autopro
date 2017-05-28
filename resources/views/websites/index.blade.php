@@ -40,13 +40,21 @@
                                         {!! Form::close() !!}
                                     </td>
                                     <td>
-                                        {!! Form::open(['action' => ['WebsitesController@continuedeploy'], 'method' => 'POST']) !!}
-                                            {!! Form::hidden('id', $website->id) !!}
-                                            {!! Form::button('Thêm tiếp data', [
-                                                'type' => 'submit',
-                                                'onclick' => "return confirm('" . trans('setting.continuedeploy') . "');",
-                                                'class' => 'btn btn-primary',
-                                            ]) !!}
+                                        {!! Form::open(['url' => 'websites/keyword', 'method' => 'POST', 'class' => 'form-horizontal']) !!}
+                                        {!! Form::hidden('domain', $website->domain) !!}
+                                        {!! Form::hidden('id', $website->id) !!}
+                                        {!! Form::hidden('protocol', $website->protocol) !!}
+                                        <div class="form-group">
+                                            {!! Form::label('keyword', __('setting.keyword'), ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+                                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                                {!! Form::text('keyword', null, ['class' => 'form-control col-md-7 col-xs-12']) !!}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                                {!! Form::submit(__('setting.add_data'), ['class' => 'btn btn-success add-keyword']) !!}
+                                            </div>
+                                        </div>
                                         {!! Form::close() !!}
                                     </td>
                                     <td>

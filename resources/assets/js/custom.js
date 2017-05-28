@@ -252,4 +252,9 @@ $(function(){
         $(".add-website").attr("disabled", true);
         $('#create-web').submit();
     });
+
+    $(".add-keyword").click(function () {
+        $(this).attr("disabled", true);
+        $(this).closest('form').submit();
+    });
 });
