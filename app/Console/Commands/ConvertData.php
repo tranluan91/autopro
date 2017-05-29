@@ -137,7 +137,7 @@ class ConvertData extends Command
             $items = Item::where('cate', 'LIKE', '%' . $category['name'] . '%')
                 ->with('details', 'details.color', 'details.style');
             if ($key) {
-                $items = $items->where('keyword', 'like', '%' . $key . '%');
+                $items = $items->where('title', 'like', '%' . $key . '%');
             }
 
             $items = $items->limit($this->limit)->inRandomOrder()->get();
