@@ -256,5 +256,6 @@ $(function(){
     $(".add-keyword").click(function () {
         $(this).attr("disabled", true);
         $(this).closest('form').submit();
+        $(this).closest('tr').find('.btn').attr("disabled", true);
     });
 });
