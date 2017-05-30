@@ -85,12 +85,12 @@ class WebsitesController extends Controller
     {
         if ($request->ajax()) {
             $input = $request->all();
-            $website = Website::find($input['id']);
+            $website = Website::find($input['website_id']);
             $website->keyword = $input['keyword'];
             $website->save();
 
             \Artisan::call('convert:data', [
-                'domain' => $input['protocol'] . $input['domain'],
+                'domain' => $website->protocol . $website->domain,
                 'key' => isset($input['keyword']) ?: '',
             ]);
 
