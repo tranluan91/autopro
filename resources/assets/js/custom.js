@@ -255,7 +255,24 @@ $(function(){
 
     $(".add-keyword").click(function () {
         $(this).attr("disabled", true);
-        $(this).closest('form').submit();
+        var $websiteId = $(this).data('website_id');
+        var $keyword = $(this).closest('tr').find('.data-keyword').val();
         $(this).closest('tr').find('.btn').attr("disabled", true);
+        var $this = $(this);
+        $.ajax({
+            url: '/websites/keyword',
+            type: 'post',
+            data: {
+                website_id: $websiteId,
+                keyword: $keyword,
+            },
+            success: function(msg) {
+                console.log('success');
+                $this.closest('tr').find('.btn').removeAttr("disabled");
+            },
+            error: function(data) {
+                location.reload();
+            }
+        });
     });
 });

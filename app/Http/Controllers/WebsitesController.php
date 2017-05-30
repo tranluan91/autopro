@@ -83,17 +83,21 @@ class WebsitesController extends Controller
 
     public function keyword(Request $request)
     {
-        $input = $request->all();
-        $website = Website::find($input['id']);
-        $website->keyword = $input['keyword'];
-        $website->save();
+        if ($request->ajax()) {
+            $input = $request->all();
+            $website = Website::find($input['id']);
+            $website->keyword = $input['keyword'];
+            $website->save();
 
-        \Artisan::call('convert:data', [
-            'domain' => $input['protocol'] . $input['domain'],
-            'key' => isset($input['keyword']) ?: '',
-        ]);
+            \Artisan::call('convert:data', [
+                'domain' => $input['protocol'] . $input['domain'],
+                'key' => isset($input['keyword']) ?: '',
+            ]);
 
-        return redirect('/home');
+            return ['status' => true];
+        } else {
+            return redirect('/home');
+        }
     }
 
     public function index()
