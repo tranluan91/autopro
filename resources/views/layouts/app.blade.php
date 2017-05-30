@@ -14,12 +14,6 @@
     <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
     @yield('styles')
 
-    <!-- Scripts -->
-    <script>
-        window.Laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-        ]) !!};
-    </script>
 </head>
 <body class="nav-md">
     <div class="container body">
@@ -92,6 +86,15 @@
     </div>
     <!-- Scripts -->
     <script src="{{ elixir('js/all.js') }}"></script>
+    <!-- Scripts -->
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            }
+        });
+    </script>
     @yield('scripts')
+
 </body>
 </html>
