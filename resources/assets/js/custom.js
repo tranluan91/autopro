@@ -250,7 +250,39 @@ $(document).ready(function() {
 $(function(){
     $(".add-website").click(function () {
         $(".add-website").attr("disabled", true);
-        $('#create-web').submit();
+
+        var $domain = $('#website-domain').val();
+        var $protocol = $('input[name="protocol"]:checked').val();
+        var $vps_id = $('#website-vps_id').val();
+
+        $.ajax({
+            url: '/websites/store',
+            type: 'post',
+            data: {
+                domain: $domain,
+                protocol: $protocol,
+                vps_id: $vps_id,
+            },
+            success: function(msg) {
+                if (msg.status == true) {
+                    alert(msg.message);
+                    window.location.href = '/websites/index';
+                } else {
+                    var $alert = '';
+                    if (msg.message.domain != undefined) {
+                        $alert += msg.message.domain[0] + "\n";
+                    }
+                    if (msg.message.vps_id != undefined) {
+                        $alert += msg.message.vps_id[0];
+                    }
+                    alert($alert);
+                    $(".add-website").removeAttr("disabled");
+                }
+            },
+            error: function(data) {
+                location.reload();
+            }
+        });
     });
 
     $(".add-keyword").click(function () {

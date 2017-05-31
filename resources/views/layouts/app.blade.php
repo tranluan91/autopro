@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
+    <link rel="stylesheet" href="{{ mix('css/all.css') }}">
     @yield('styles')
 
 </head>
@@ -85,7 +85,7 @@
         </div>
     </div>
     <!-- Scripts -->
-    <script src="{{ elixir('js/all.js') }}"></script>
+    <script src="{{ mix('js/all.js') }}"></script>
     <!-- Scripts -->
     <script>
         $.ajaxSetup({
