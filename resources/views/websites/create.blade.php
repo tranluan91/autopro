@@ -8,8 +8,7 @@
                 @include('layouts.notice')
                 <div class="panel-heading">@lang('setting.create_website')</div>
 
-                <div class="panel-body">
-                    {!! Form::open(['url' => 'websites/store', 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'create-web']) !!}
+                <div class="panel-body form-horizontal">
                     <div class="form-group">
                         {!! Form::label('website', __('setting.list'), ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
                         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -19,7 +18,7 @@
                     <div class="form-group">
                         {!! Form::label('domain', __('setting.domain'), ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            {!! Form::text('domain', null, ['class' => 'form-control col-md-7 col-xs-12', 'placeholder' => 'google.com']) !!}
+                            {!! Form::text('domain', null, ['class' => 'form-control col-md-7 col-xs-12', 'placeholder' => 'google.com', 'id' => 'website-domain']) !!}
                         </div>
                     </div>
                     <div class="form-group">
@@ -43,15 +42,14 @@
                     <div class="form-group">
                         {!! Form::label('vps', __('setting.vps_select'), ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            {!! Form::select('vps_id', $vpsList, null, ['class' => 'form-control col-md-7 col-xs-12']) !!}
+                            {!! Form::select('vps_id', $vpsList, null, ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'website-vps_id']) !!}
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            {!! Form::submit(__('setting.add_website'), ['class' => 'btn btn-success add-website']) !!}
+                            {!! Form::button(__('setting.add_website'), ['class' => 'btn btn-success add-website']) !!}
                         </div>
                     </div>
-                    {!! Form::close() !!}
                 </div>
             </div>
         </div>

@@ -34,36 +34,41 @@ class WebsitesController extends Controller
 
     public function store(Request $request)
     {
-        $input = $request->all();
-        $protocol = $input['protocol'];
-        $validator = \Validator::make($input, Website::$rule);
+        if ($request->ajax()) {
+            $input = $request->all();
+            $protocol = $input['protocol'];
+            $validator = \Validator::make($input, Website::$rule);
 
-        if ($validator->fails()) {
-            return redirect('websites/create')
-                        ->withErrors($validator)
-                        ->withInput();
-        }
-        $vps = Vps::find($input['vps_id']);
-        if ($vps->website_deployed >= Vps::MAX_SITE_VPS) {
-            return redirect()->back()->with('error', __('setting.vps_max'));
-        }
-        $input['status'] = Website::WAIT_DEPLOY;
-        $web = Website::create($input);
-        if (!$web) {
-            return redirect()->back()->with('error', __('setting.vps_fail'));
-        }
-        $website = Website::find($web->id);
-        $vps = $website->vps;
-        $result = self::runscript($website, $vps);
-        if (!$result) {
-            $vps->website_deployed += 1;
-            $vps->save();
+            if ($validator->fails()) {
+                $errors = $validator->getMessageBag();
 
-            return redirect('websites/index')->with('message', __('setting.web_deploy_success'));
-        }
-        Website::destroy($website->id);
+                return response()->json(['status' => false, 'message' => $errors]);
+            }
+            \Log::info($input);
+            $vps = Vps::find($input['vps_id']);
+            if ($vps->website_deployed >= Vps::MAX_SITE_VPS) {
+                return response()->json(['status' => false, 'message' => ['vps_id' => [__('setting.vps_max')]]]);
+            }
+            $input['status'] = Website::WAIT_DEPLOY;
+            $web = Website::create($input);
+            if (!$web) {
+                return response()->json(['status' => false, 'message' => ['domain' => [__('setting.website_fail')]]]);
+            }
+            $website = Website::find($web->id);
+            $vps = $website->vps;
+            $result = self::runscript($website, $vps);
+            if ($result == 0) {
+                $vps->website_deployed += 1;
+                $vps->save();
 
-        return redirect()->back()->with('error', __('setting.web_deploy_fail'));
+                return response()->json(['status' => true, 'message' => __('setting.web_deploy_success')]);
+            }
+            Website::destroy($website->id);
+
+            return response()->json(['status' => false, 'message' => ['domain' => [__('setting.web_deploy_fail')]]]);
+        }
+
+        return redirect('/');
     }
 
     private static function runscript($website, $vps, $undeploy = false)
@@ -74,11 +79,15 @@ class WebsitesController extends Controller
         if ($undeploy) {
             $script .= ' --undeploy';
         }
-        $process = new Process($script);
-        $process->setTimeout(1200);
-        $process->run();
+        try {
+            $process = new Process($script);
+            $process->setTimeout(1200);
+            $process->run();
 
-        return $process->getOutput();
+            return $process->getOutput();
+        } catch (\Exception $e) {
+            return true;
+        }
     }
 
     public function keyword(Request $request)
@@ -87,12 +96,13 @@ class WebsitesController extends Controller
             $input = $request->all();
             $website = Website::find($input['website_id']);
             $website->keyword = $input['keyword'];
-            $website->save();
 
             \Artisan::call('convert:data', [
                 'domain' => $website->protocol . $website->domain,
                 'key' => isset($input['keyword']) ?: '',
             ]);
+            $website->daily_deploy += 1;
+            $website->save();
 
             return ['status' => true];
         } else {
@@ -145,5 +155,13 @@ class WebsitesController extends Controller
             return redirect('websites/index');
         }
         return redirect()->back()->with('error', __('setting.web_deploy_fail'));
+    }
+
+    public function edit($id)
+    {
+    }
+
+    public function update(Request $request)
+    {
     }
 }

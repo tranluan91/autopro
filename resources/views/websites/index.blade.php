@@ -35,7 +35,7 @@
                                             {!! Form::button('Deploy lại', [
                                                 'type' => 'submit',
                                                 'onclick' => "return confirm('" . trans('setting.redeploy') . "');",
-                                                'class' => 'btn btn-warning',
+                                                'class' => 'btn btn-xs btn-warning',
                                             ]) !!}
                                         {!! Form::close() !!}
                                     </td>
@@ -49,7 +49,8 @@
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                    {!! Form::button(__('setting.add_data'), ['class' => 'btn btn-success add-keyword', 'data-website_id' => $website->id]) !!}
+                                                    {!! Form::button(__('setting.add_data'), ['class' => 'btn btn-xs btn-success add-keyword', 'data-website_id' => $website->id]) !!}
+                                                    {!! Form::button(__('setting.daily_deploy', ['daily_deploy' => $website->daily_deploy]), ['class' => 'btn btn-xs btn-danger']) !!}
                                                 </div>
                                             </div>
                                         </div>
@@ -60,7 +61,7 @@
                                             {!! Form::button('Undeploy', [
                                                 'type' => 'submit',
                                                 'onclick' => "return confirm('" . trans('setting.undeploy') . "');",
-                                                'class' => 'btn btn-primary',
+                                                'class' => 'btn btn-xs btn-primary',
                                             ]) !!}
                                         {!! Form::close() !!}
                                     </td>

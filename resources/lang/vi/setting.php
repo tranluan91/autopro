@@ -19,6 +19,7 @@ return [
     'vps_select' => 'Chọn VPS',
     'keyword' => 'Keyword',
     'website_success' => 'Success! Website đã được tạo thành công.',
+    'website_fail' => 'Không tạo được website!',
     'add_website' => 'Thêm Website',
     'choose' => 'Mời bạn chọn...',
     'change_password' => 'Đổi mật khẩu',
@@ -48,7 +49,7 @@ return [
     'delete_vps_success' => 'VPS này đã được xóa',
     'delete_vps_fail' => 'VPS này chưa được xóa',
     'web_site_not_exist' => 'Website không tồn tại',
-    'web_deploy_success' => 'Website đã được deploy thành công. Vui lòng trỏ domain vào DNS',
+    'web_deploy_success' => "Website đã được deploy thành công. \nVui lòng trỏ domain vào DNS",
     'web_deploy_fail' => 'Website deploy không thành công. Vui lòng kiểm tra lại thông tin.',
     'vps_max' => 'VPS này đã deploy quá số lần quy định',
     'add_data' => 'Thêm data',
@@ -57,4 +58,6 @@ return [
     'continuedeploy' => 'Bạn có chắc thêm data cho Website này?',
     'undeploy' => 'Bạn có chắc undeploy Website này?',
     'undeploy_success' => 'Website undeploy thành công',
+    'edit_website' => 'Sửa website này',
+    'daily_deploy' => "Đã thêm :daily_deploy lần"
 ];
