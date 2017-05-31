@@ -51,6 +51,7 @@
                                                 <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                                                     {!! Form::button(__('setting.add_data'), ['class' => 'btn btn-xs btn-success add-keyword', 'data-website_id' => $website->id]) !!}
                                                     {!! Form::button(__('setting.daily_deploy', ['daily_deploy' => $website->daily_deploy]), ['class' => 'btn btn-xs btn-danger']) !!}
+                                                    {!! Form::button(__('setting.sum_deploy', ['sum_deploy' => $website->sum_deploy]), ['class' => 'btn btn-xs btn-primary']) !!}
                                                 </div>
                                             </div>
                                         </div>

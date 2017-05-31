@@ -44,7 +44,6 @@ class WebsitesController extends Controller
 
                 return response()->json(['status' => false, 'message' => $errors]);
             }
-            \Log::info($input);
             $vps = Vps::find($input['vps_id']);
             if ($vps->website_deployed >= Vps::MAX_SITE_VPS) {
                 return response()->json(['status' => false, 'message' => ['vps_id' => [__('setting.vps_max')]]]);
@@ -102,6 +101,7 @@ class WebsitesController extends Controller
                 'key' => isset($input['keyword']) ?: '',
             ]);
             $website->daily_deploy += 1;
+            $website->sum_deploy += 1;
             $website->save();
 
             return ['status' => true];
