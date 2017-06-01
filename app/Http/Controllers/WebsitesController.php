@@ -95,14 +95,14 @@ class WebsitesController extends Controller
             $input = $request->all();
             $website = Website::find($input['website_id']);
             $website->keyword = $input['keyword'];
-
-            \Artisan::call('convert:data', [
-                'domain' => $website->protocol . $website->domain,
-                'key' => isset($input['keyword']) ?: '',
-            ]);
             $website->daily_deploy += 1;
             $website->sum_deploy += 1;
             $website->save();
+
+            \Artisan::call('convert:data', [
+                'domain' => $website->protocol . $website->domain,
+                'key' => isset($input['keyword']) ? $input['keyword'] : '',
+            ]);
 
             return ['status' => true];
         } else {
