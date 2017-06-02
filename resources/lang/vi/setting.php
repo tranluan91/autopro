@@ -58,7 +58,9 @@ return [
     'continuedeploy' => 'Bạn có chắc thêm data cho Website này?',
     'undeploy' => 'Bạn có chắc undeploy Website này?',
     'undeploy_success' => 'Website undeploy thành công',
+    'undeploy_fail' => 'Website undeploy không thành công',
     'edit_website' => 'Sửa website này',
     'daily_deploy' => "Hôm nay đã thêm :daily_deploy lần",
     'sum_deploy' => "Tổng đã thêm :sum_deploy lần",
+    'delete' => 'Bạn có chắc delete Website này?',
 ];

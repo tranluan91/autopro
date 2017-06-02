@@ -33,5 +33,5 @@ Route::get('websites/index', 'WebsitesController@index');
 Route::post('websites/redeploy', 'WebsitesController@redeploy');
 Route::post('websites/continuedeploy', 'WebsitesController@continuedeploy');
 Route::post('websites/undeploy', 'WebsitesController@undeploy');
-Route::get('websites/{id}/edit', 'WebsitesController@edit');
-Route::post('websites/{id}/update', 'WebsitesController@update');
+Route::get('websites/delete', 'WebsitesController@delete');
+Route::delete('websites/{id}/destroy', 'WebsitesController@destroy');
