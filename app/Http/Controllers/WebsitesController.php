@@ -159,9 +159,52 @@ class WebsitesController extends Controller
 
     public function edit($id)
     {
+        $website = Website::findOrFail($id);
+        $vpsList = [__('setting.choose')];
+        $vpsList += Vps::orderBy('id', 'DESC')->pluck('ip', 'id')->toArray();
+
+        return view('websites.edit', compact(['website', 'vpsList']));
     }
 
     public function update(Request $request)
     {
+        if ($request->ajax()) {
+            $input = $request->all();
+            $protocol = $input['protocol'];
+            $validator = \Validator::make($input, Website::ruleUpdate($input['id']));
+
+            if ($validator->fails()) {
+                $errors = $validator->getMessageBag();
+
+                return response()->json(['status' => false, 'message' => $errors]);
+            }
+            $vps = Vps::find($input['vps_id']);
+            $website = Website::findOrFail($input['id']);
+            $web = $website;
+            if ($website->vps_id != $vps->id && $vps->website_deployed >= Vps::MAX_SITE_VPS) {
+                return response()->json(['status' => false, 'message' => ['vps_id' => [__('setting.vps_max')]]]);
+            }
+            $input['status'] = Website::WAIT_DEPLOY;
+            $website->domain = $input['domain'];
+            $website->protocol = $input['protocol'];
+            $website->vps_id = $input['vps_id'];
+            if (!$website->save()) {
+                return response()->json(['status' => false, 'message' => ['domain' => [__('setting.website_fail')]]]);
+            }
+            $website = Website::find($web->id);
+            $vps = $website->vps;
+            $result = self::runscript($website, $vps);
+            if ($result == 0) {
+                $vps->website_deployed += 1;
+                $vps->save();
+
+                return response()->json(['status' => true, 'message' => __('setting.web_deploy_success')]);
+            }
+            Website::destroy($website->id);
+
+            return response()->json(['status' => false, 'message' => ['domain' => [__('setting.web_deploy_fail')]]]);
+        }
+
+        return redirect('/');
     }
 }

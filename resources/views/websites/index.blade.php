@@ -20,6 +20,7 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,6 +66,9 @@
                                                 'class' => 'btn btn-xs btn-primary',
                                             ]) !!}
                                         {!! Form::close() !!}
+                                    </td>
+                                    <td>
+                                        <a href="{{ action('WebsitesController@edit', [$website->id]) }}"><button class="btn btn-xs btn-success">Edit</button></a>
                                     </td>
                                 </tr>
                                 @endforeach

@@ -285,6 +285,46 @@ $(function(){
         });
     });
 
+    $(".edit-website").click(function () {
+        $(".edit-website").attr("disabled", true);
+
+        var $id = $('#website_id').val();
+        var $domain = $('#website-domain').val();
+        var $protocol = $('input[name="protocol"]:checked').val();
+        var $vps_id = $('#website-vps_id').val();
+
+        $.ajax({
+            url: '/websites/' + $id + '/update',
+            type: 'post',
+            data: {
+                __method: 'PUT',
+                id: $id,
+                domain: $domain,
+                protocol: $protocol,
+                vps_id: $vps_id,
+            },
+            success: function(msg) {
+                if (msg.status == true) {
+                    alert(msg.message);
+                    window.location.href = '/websites/index';
+                } else {
+                    var $alert = '';
+                    if (msg.message.domain != undefined) {
+                        $alert += msg.message.domain[0] + "\n";
+                    }
+                    if (msg.message.vps_id != undefined) {
+                        $alert += msg.message.vps_id[0];
+                    }
+                    alert($alert);
+                    $(".edit-website").removeAttr("disabled");
+                }
+            },
+            error: function(data) {
+                location.reload();
+            }
+        });
+    });
+
     $(".add-keyword").click(function () {
         $(this).attr("disabled", true);
         var $websiteId = $(this).data('website_id');

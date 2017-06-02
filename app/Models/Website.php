@@ -20,6 +20,14 @@ class Website extends Model
         'vps_id' => 'required|exists:vps,id',
     ];
 
+    public static function ruleUpdate($id)
+    {
+        return [
+            'domain' => 'required|unique:websites,domain,' . $id,
+            'vps_id' => 'required|exists:vps,id',
+        ];
+    }
+
     const WAIT_DEPLOY = 0;
     const DONE_DEPLOY = 1;
 
