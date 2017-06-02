@@ -149,7 +149,7 @@ class WebsitesController extends Controller
         $protocol = $website->protocol;
         $vps = $website->vps;
         $result = self::runscript($website, $vps, true);
-        if (!$result) {
+        if ($result == 0) {
             $request->session()->flash('message', __('setting.undeploy_success'));
 
             return redirect('websites/index');
@@ -157,11 +157,35 @@ class WebsitesController extends Controller
         return redirect()->back()->with('error', __('setting.web_deploy_fail'));
     }
 
-    public function edit($id)
+    public function delete()
     {
+        $websites = Website::orderBy('id',  'DESC')->paginate(10);
+
+        return view('websites.delete', compact(['websites']));
     }
 
-    public function update(Request $request)
+    public function destroy(Request $request)
     {
+        try {
+            $id = $request->get('id');
+            $website = Website::findOrFail($id);
+            $protocol = $website->protocol;
+            $vps = $website->vps;
+            $result = self::runscript($website, $vps, $undeploy = true);
+            if ($result != 0) {
+                $request->session()->flash('error', __('setting.undeploy_fail'));
+
+                return redirect('websites/delete');
+            }
+            $vps->website_deployed -= 1;
+            $vps->save();
+            $website->delete();
+
+            $request->session()->flash('message', __('setting.undeploy_success'));
+        } catch (Exception $e) {
+            $request->session()->flash('error', __('setting.undeploy_fail'));
+        }
+
+        return redirect('websites/delete');
     }
 }
