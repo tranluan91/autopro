@@ -65,6 +65,7 @@ class ConvertData extends Command
         try {
             $this->client = new Client($this->argument('domain'), self::consumer_key, self::consumer_secret, ['timeout' => 200]);
             $key = $this->argument('key');
+
             if ($this->checkUrl()) {
                 $this->config();
                 $this->convertCategories();
@@ -146,10 +147,10 @@ class ConvertData extends Command
                 $convertData = $this->createProductAttributes($item->details, $item->link);
                 $data = [
                     'product' => [
-                        'title' => $item->title,
+                        'title' => Config::get('convert.title')[rand(0, 4)] . $item->title,
                         'sku' => str_slug($item->title),
                         'type' => 'variable',
-                        'description' => $item->description,
+                        'description' => $item->description . Config::get('convert.description'),
                         'short_description' => $item->keyword,
                         'categories' => [$category['id']],
                         'images' => $convertData['images'],
