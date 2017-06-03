@@ -14,11 +14,14 @@ class SunAccountsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('admin', ['except' => 'index']);
     }
 
     public function index()
     {
+        if (!\Auth::user()) {
+            return redirect('/');
+        }
         $sunAccounts = SunAccount::orderBy('id',  'DESC')->paginate(10);
 
         return view('suns.index', compact(['sunAccounts']));

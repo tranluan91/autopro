@@ -2,11 +2,9 @@
     <li>
         <a href="/home"><i class="fa fa-home"></i> @lang('setting.homepage')</a>
     </li>
-    @if (Auth::user()->isAdmin())
     <li>
         <a href="{{ action('SunAccountsController@index') }}"><i class="fa fa-star"></i> @lang('setting.sun_index')</a>
     </li>
-    @endif
     <li>
         <a href="/vps/create"><i class="fa fa-bar-chart-o"></i> @lang('setting.create_vps')</a>
     </li>
