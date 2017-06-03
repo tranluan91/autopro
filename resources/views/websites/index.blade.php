@@ -16,6 +16,7 @@
                                     <th>#</th>
                                     <th>Domain</th>
                                     <th>VPS</th>
+                                    <th>SUN ID</th>
                                     <th>Keyword Data</th>
                                     <th></th>
                                     <th></th>
@@ -28,6 +29,7 @@
                                     <th scope="row">{{ $website->id }}</th>
                                     <td>{{ $website->domain }}</td>
                                     <td>{{ $website->vps->ip }}</td>
+                                    <td>{{ $website->sunAccount->sun_id }}</td>
                                     <td>{{ $website->keyword }}</td>
                                     <td>
                                         {!! Form::open(['action' => ['WebsitesController@redeploy'], 'method' => 'POST']) !!}
