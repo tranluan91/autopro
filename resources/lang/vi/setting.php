@@ -63,4 +63,10 @@ return [
     'daily_deploy' => "Hôm nay đã thêm :daily_deploy lần",
     'sum_deploy' => "Tổng đã thêm :sum_deploy lần",
     'delete' => 'Bạn có chắc delete Website này?',
+    'sun_index' => 'Quản lý sun accounts',
+    'add_sun' => 'Thêm Sun Account',
+    'sun_id' => 'Sun ID',
+    'sun_success' => 'Thêm Sun Account thành công',
+    'sun_fail' => 'Thêm Sun Account không thành công',
+    'sun_select' => 'Tài khoản Sun ID',
 ];

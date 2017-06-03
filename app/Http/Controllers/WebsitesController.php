@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Website;
 use App\Models\Vps;
+use App\Models\SunAccount;
 use Symfony\Component\Process\Process;
 
 class WebsitesController extends Controller
@@ -25,10 +26,13 @@ class WebsitesController extends Controller
         $websites +=  Website::orderBy('id', 'DESC')->pluck('domain', 'id')->toArray();
         $vpsList = [__('setting.choose')];
         $vpsList += Vps::orderBy('id', 'DESC')->pluck('ip', 'id')->toArray();
+        $suns = [__('setting.choose')];
+        $suns += SunAccount::orderBy('id', 'DESC')->pluck('sun_id', 'id')->toArray();
 
         return view('websites.create', compact([
             'websites',
             'vpsList',
+            'suns',
         ]));
     }
 
@@ -77,6 +81,8 @@ class WebsitesController extends Controller
             " -u '" . $vps->username . "' -P '" . $vps->password . "'";
         if ($undeploy) {
             $script .= ' --undeploy';
+        } else {
+            $script .= ' --id-sale ' . $website->sunAccount->sun_id;
         }
         try {
             $process = new Process($script);

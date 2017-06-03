@@ -46,6 +46,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        {!! Form::label('sun_id', __('setting.sun_select'), ['class' => 'control-label col-md-3 col-sm-3 col-xs-12']) !!}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            {!! Form::select('sun_id', $suns, null, ['class' => 'form-control col-md-7 col-xs-12', 'id' => 'website-sun_id']) !!}
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                             {!! Form::button(__('setting.add_website'), ['class' => 'btn btn-success add-website']) !!}
                         </div>
