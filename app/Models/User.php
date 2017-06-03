@@ -18,6 +18,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -34,4 +35,12 @@ class User extends Authenticatable
         'password' => 'required',
         'new_password' => 'required|string|min:6|confirmed',
     ];
+
+    const USER = 0;
+    const ADMIN = 1;
+
+    public function isAdmin()
+    {
+        return $this->role == USER::ADMIN;
+    }
 }

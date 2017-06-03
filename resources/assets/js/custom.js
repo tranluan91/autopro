@@ -254,6 +254,7 @@ $(function(){
         var $domain = $('#website-domain').val();
         var $protocol = $('input[name="protocol"]:checked').val();
         var $vps_id = $('#website-vps_id').val();
+        var $sun_id = $('#website-sun_id').val();
 
         $.ajax({
             url: '/websites/store',
@@ -262,6 +263,7 @@ $(function(){
                 domain: $domain,
                 protocol: $protocol,
                 vps_id: $vps_id,
+                sun_id: $sun_id,
             },
             success: function(msg) {
                 if (msg.status == true) {
@@ -273,7 +275,10 @@ $(function(){
                         $alert += msg.message.domain[0] + "\n";
                     }
                     if (msg.message.vps_id != undefined) {
-                        $alert += msg.message.vps_id[0];
+                        $alert += msg.message.vps_id[0] + "\n";
+                    }
+                    if (msg.message.sun_id != undefined) {
+                        $alert += msg.message.sun_id[0];
                     }
                     alert($alert);
                     $(".add-website").removeAttr("disabled");
