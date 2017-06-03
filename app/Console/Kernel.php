@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Console\Commands\ConvertData;
 use App\Console\Commands\CreateMegaMenu;
 use App\Console\Commands\ResetDailyDeployWebsite;
+use App\Console\Commands\CreateAccount;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -19,6 +20,7 @@ class Kernel extends ConsoleKernel
         ConvertData::class,
         CreateMegaMenu::class,
         ResetDailyDeployWebsite::class,
+        CreateAccount::class,
     ];
 
     /**
