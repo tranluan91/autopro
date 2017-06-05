@@ -8,7 +8,7 @@ class Vps extends Model
 {
     protected $table = 'vps';
 
-    const MAX_SITE_VPS = 5;
+    const MAX_SITE_VPS = 15;
 
     protected $fillable = [
         'ip',

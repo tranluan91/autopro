@@ -9,9 +9,6 @@
         <a href="/vps/create"><i class="fa fa-bar-chart-o"></i> @lang('setting.create_vps')</a>
     </li>
     <li>
-        <a href="/websites/delete"><i class="fa fa-cube"></i> Xóa Websites đã thêm</a>
-    </li>
-    <li>
         <a href="/websites/index"><i class="fa fa-cube"></i> Websites đã thêm</a>
     </li>
     <li>
@@ -19,5 +16,8 @@
     </li>
     <li>
         <a href="/pin"><i class="fa fa-cube"></i> Quản lý tài khoản PIN</a>
+    </li>
+    <li>
+        <a href="/websites/delete"><i class="fa fa-minus-circle"></i> Xóa Websites đã thêm</a>
     </li>
 </ul>
