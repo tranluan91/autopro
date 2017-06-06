@@ -6,7 +6,7 @@
         <a href="{{ action('SunAccountsController@index') }}"><i class="fa fa-star"></i> @lang('setting.sun_index')</a>
     </li>
     <li>
-        <a href="/vps/create"><i class="fa fa-bar-chart-o"></i> @lang('setting.create_vps')</a>
+        <a href="/vps/index"><i class="fa fa-bar-chart-o"></i> Quản lý VPS</a>
     </li>
     <li>
         <a href="/websites/index"><i class="fa fa-cube"></i> Websites đã thêm</a>
