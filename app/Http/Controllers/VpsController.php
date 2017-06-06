@@ -17,6 +17,13 @@ class VpsController extends Controller
         $this->middleware('auth');
     }
 
+    public function index()
+    {
+        $vpsList = Vps::orderBy('id',  'DESC')->paginate(10);
+
+        return view('vps.index', compact(['vpsList']));
+    }
+
     public function create(Request $reqest)
     {
         $vpsList = [__('setting.vps_added')];
