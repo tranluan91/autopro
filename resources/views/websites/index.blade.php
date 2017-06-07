@@ -29,7 +29,7 @@
                                     <th scope="row">{{ $website->id }}</th>
                                     <td>{{ $website->domain }}</td>
                                     <td>{{ $website->vps->ip }}</td>
-                                    <td>{{ isset($website->sunAccount->sun_id) ?: '' }}</td>
+                                    <td>{{ isset($website->sunAccount->sun_id) ? $website->sunAccount->sun_id : '' }}</td>
                                     <td>{{ $website->keyword }}</td>
                                     <td>
                                         {!! Form::open(['action' => ['WebsitesController@redeploy'], 'method' => 'POST']) !!}
