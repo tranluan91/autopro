@@ -100,7 +100,9 @@ class WebsitesController extends Controller
         if ($request->ajax()) {
             $input = $request->all();
             $website = Website::find($input['website_id']);
-            $website->keyword = $input['keyword'];
+            if ($input['keyword']) {
+                $website->keyword = ($website->keyword) ? $website->keyword  . ',' . $input['keyword'] : $input['keyword'];
+            }
             $website->daily_deploy += 1;
             $website->sum_deploy += 1;
             $website->save();
