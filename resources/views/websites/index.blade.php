@@ -6,7 +6,9 @@
         <div class="col-md-12 col-xs-12">
             <div class="panel panel-default">
                 @include('layouts.notice')
-                <div class="panel-heading">Quản lý websites</div>
+                <div class="panel-heading">Quản lý websites
+                    <button class="btn btn-xs btn-success">Đã thêm {{ $websites->total() }} websites</button>
+                </div>
 
                 <div class="panel-body">
                     <div class="x_content">
