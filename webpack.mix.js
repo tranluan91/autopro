@@ -20,7 +20,8 @@ mix.combine([
         paths.gentelella_vendors + 'bootstrap/dist/css/bootstrap.min.css', // Bootstrap
         paths.gentelella_vendors + 'font-awesome/css/font-awesome.min.css', // Font awesome
         paths.gentelella_vendors + 'bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css', // Bootstrap Progress Bar
-        paths.gentelella + 'build/css/custom.min.css' // Gentelella
+        paths.gentelella + 'build/css/custom.min.css', // Gentelella
+        paths.resources + 'sass/custom.css'
     ],  'public/css/all.css')
     .version();
 

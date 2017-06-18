@@ -32,7 +32,7 @@
                                     <td>{{ $website->domain }}</td>
                                     <td>{{ $website->vps->ip }}</td>
                                     <td>{{ isset($website->sunAccount->sun_id) ? $website->sunAccount->sun_id : '' }}</td>
-                                    <td>{{ $website->keyword }}</td>
+                                    <td class="keyword-index">{{ $website->keyword }}</td>
                                     <td>
                                         {!! Form::open(['action' => ['WebsitesController@redeploy'], 'method' => 'POST']) !!}
                                             {!! Form::hidden('id', $website->id) !!}
