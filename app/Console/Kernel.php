@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\ConvertData;
 use App\Console\Commands\CreateMegaMenu;
+use App\Console\Commands\DeleteProduct;
 use App\Console\Commands\ResetDailyDeployWebsite;
 use App\Console\Commands\CreateAccount;
 use Illuminate\Console\Scheduling\Schedule;
@@ -21,6 +22,7 @@ class Kernel extends ConsoleKernel
         CreateMegaMenu::class,
         ResetDailyDeployWebsite::class,
         CreateAccount::class,
+        DeleteProduct::class,
     ];
 
     /**
