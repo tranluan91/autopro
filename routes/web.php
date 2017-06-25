@@ -34,6 +34,7 @@ Route::post('websites/redeploy', 'WebsitesController@redeploy');
 Route::post('websites/continuedeploy', 'WebsitesController@continuedeploy');
 Route::post('websites/undeploy', 'WebsitesController@undeploy');
 Route::get('websites/delete', 'WebsitesController@delete');
+Route::post('websites/delete-product', 'WebsitesController@deleteProduct');
 Route::delete('websites/{id}/destroy', 'WebsitesController@destroy');
 Route::resource('sun', 'SunAccountsController');
 Route::get('vps/index', 'VpsController@index');

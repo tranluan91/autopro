@@ -17,7 +17,8 @@
                                     <th>Domain</th>
                                     <th>VPS</th>
                                     <th>Keyword Data</th>
-                                    <th></th>
+                                    <th>Xóa website</th>
+                                    <th>Xóa sản phẩm không có ảnh</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,6 +37,9 @@
                                                 'class' => 'btn btn-xs btn-danger',
                                             ]) !!}
                                         {!! Form::close() !!}
+                                    </td>
+                                    <td>
+                                        {!! Form::button('Xóa sản phẩm', ['class' => 'btn btn-xs btn-warning delete-product', 'data-website_id' => $website->id]) !!}
                                     </td>
                                 </tr>
                                 @endforeach
