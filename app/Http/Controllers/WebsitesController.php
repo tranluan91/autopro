@@ -196,4 +196,21 @@ class WebsitesController extends Controller
 
         return redirect('websites/delete');
     }
+
+    /**
+     *  delete product has no image
+     **/
+    public function deleteProduct(Request $request)
+    {
+        if ($request->ajax()) {
+            $websiteId = $request->get('website_id');
+            $website = Website::find($websiteId);
+            \Artisan::call('delete:product', [
+                'domain' => $website->protocol . $website->domain,
+            ]);
+            return ['status' => true];
+        }
+
+        return redirect('/home');
+    }
 }

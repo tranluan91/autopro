@@ -312,4 +312,24 @@ $(function(){
             }
         });
     });
+
+    $(".delete-product").click(function () {
+        $(this).attr("disabled", true);
+        var $websiteId = $(this).data('website_id');
+        var $this = $(this);
+        $.ajax({
+            url: '/websites/delete-product',
+            type: 'post',
+            data: {
+                website_id: $websiteId,
+            },
+            success: function(msg) {
+                console.log(msg);
+                $this.removeAttr("disabled");
+            },
+            error: function(data) {
+                location.reload();
+            }
+        });
+    });
 });
