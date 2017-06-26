@@ -81,7 +81,7 @@ class DeleteProduct extends Command
             ]);
 
             foreach ($products['products'] as $product) {
-                if (isset($product['id']) && empty($product['images'])) {
+                if (isset($product['id']) && count($product['images']) == 1) {
                     $this->client->delete('products/' . $product['id'], ['force' => true]);
                 }
             }
