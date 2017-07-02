@@ -39,7 +39,7 @@ class ConvertData extends Command
 
     protected $client;
 
-    protected $limit = 5;
+    protected $limit = 25;
 
     protected $offset = 20;
 
