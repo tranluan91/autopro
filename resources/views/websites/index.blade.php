@@ -20,8 +20,10 @@
                                     <th>VPS</th>
                                     <th>SUN ID</th>
                                     <th>Keyword Data</th>
+                                    @if (Auth::user()->isAdmin())
                                     <th></th>
                                     <th></th>
+                                    @endif
                                     <th></th>
                                 </tr>
                             </thead>
@@ -33,6 +35,7 @@
                                     <td>{{ $website->vps->ip }}</td>
                                     <td>{{ isset($website->sunAccount->sun_id) ? $website->sunAccount->sun_id : '' }}</td>
                                     <td class="keyword-index">{{ $website->keyword }}</td>
+                                    @if (Auth::user()->isAdmin())
                                     <td>
                                         {!! Form::open(['action' => ['WebsitesController@redeploy'], 'method' => 'POST']) !!}
                                             {!! Form::hidden('id', $website->id) !!}
@@ -42,6 +45,7 @@
                                                 'class' => 'btn btn-xs btn-warning',
                                             ]) !!}
                                         {!! Form::close() !!}
+                                    @endif
                                     </td>
                                     <td>
                                         <div class="form-horizontal">
@@ -60,6 +64,7 @@
                                             </div>
                                         </div>
                                     </td>
+                                    @if (Auth::user()->isAdmin())
                                     <td>
                                         {!! Form::open(['action' => ['WebsitesController@undeploy'], 'method' => 'POST']) !!}
                                             {!! Form::hidden('id', $website->id) !!}
@@ -70,6 +75,7 @@
                                             ]) !!}
                                         {!! Form::close() !!}
                                     </td>
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>
