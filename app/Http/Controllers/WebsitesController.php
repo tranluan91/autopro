@@ -127,6 +127,9 @@ class WebsitesController extends Controller
 
     public function redeploy(Request $request)
     {
+        if (\Auth::user() &&  \Auth::user()->role != User::ADMIN) {
+            return redirect('websites/index');
+        }
         $websiteId = $request->get('id');
         $website = Website::find($websiteId);
         $protocol = $website->protocol;
@@ -152,6 +155,9 @@ class WebsitesController extends Controller
 
     public function undeploy(Request $request)
     {
+        if (\Auth::user() &&  \Auth::user()->role != User::ADMIN) {
+            return redirect('websites/index');
+        }
         $websiteId = $request->get('id');
         $website = Website::find($websiteId);
         $protocol = $website->protocol;
@@ -174,6 +180,9 @@ class WebsitesController extends Controller
 
     public function destroy(Request $request)
     {
+        if (\Auth::user() &&  \Auth::user()->role != User::ADMIN) {
+            return redirect('websites/delete');
+        }
         try {
             $id = $request->get('id');
             $website = Website::findOrFail($id);

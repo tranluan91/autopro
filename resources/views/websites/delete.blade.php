@@ -17,7 +17,9 @@
                                     <th>Domain</th>
                                     <th>VPS</th>
                                     <th>Keyword Data</th>
+                                    @if (Auth::user()->isAdmin())
                                     <th>Xóa website</th>
+                                    @endif
                                     <th>Xóa sản phẩm không có ảnh</th>
                                 </tr>
                             </thead>
@@ -28,6 +30,7 @@
                                     <td>{{ $website->domain }}</td>
                                     <td>{{ $website->vps->ip }}</td>
                                     <td>{{ $website->keyword }}</td>
+                                    @if (Auth::user()->isAdmin())
                                     <td>
                                         {!! Form::open(['action' => ['WebsitesController@destroy', $website->id], 'method' => 'DELETE']) !!}
                                             {!! Form::hidden('id', $website->id) !!}
@@ -38,6 +41,7 @@
                                             ]) !!}
                                         {!! Form::close() !!}
                                     </td>
+                                    @endif
                                     <td>
                                         {!! Form::button('Xóa sản phẩm', ['class' => 'btn btn-xs btn-warning delete-product', 'data-website_id' => $website->id]) !!}
                                     </td>
