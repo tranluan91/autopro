@@ -50,9 +50,9 @@ class WebsitesController extends Controller
                 return response()->json(['status' => false, 'message' => $errors]);
             }
             $vps = Vps::find($input['vps_id']);
-            if ($vps->website_deployed >= Vps::MAX_SITE_VPS) {
-                return response()->json(['status' => false, 'message' => ['vps_id' => [__('setting.vps_max')]]]);
-            }
+            // if ($vps->website_deployed >= Vps::MAX_SITE_VPS) {
+            //     return response()->json(['status' => false, 'message' => ['vps_id' => [__('setting.vps_max')]]]);
+            // }
             $input['status'] = Website::WAIT_DEPLOY;
             $web = Website::create($input);
             if (!$web) {
